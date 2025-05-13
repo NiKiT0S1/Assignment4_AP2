@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package order;
+
+option go_package = "orderService/internal/delivery/grpc/pb";
+
+message OrderItem {
+  int32 id = 1;
+  int32 order_id = 2;
+  int32 product_id = 3;
+  int32 quantity = 4;
+}
+
+message Order {
+  int32 id = 1;
+  int32 user_id = 2;
+  string status = 3;
+  repeated OrderItem items = 4;
+}
+
+message OrderID {
+  int32 id = 1;
+}
+
+message ListOrdersRequest {
+  int32 user_id = 1;
+}
+
+message Empty {}
+
+service OrderService {
+  rpc CreateOrder(Order) returns (Order);
+  rpc GetOrder(OrderID) returns (Order);
+  rpc UpdateOrderStatus(Order) returns (Order);
+  rpc ListOrdersByUser(ListOrdersRequest) returns (OrderList);
+}
+
+message OrderList {
+  repeated Order orders = 1;
+}

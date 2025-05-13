@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package inventory;
+
+option go_package = "apiGateway/internal/proto/inventory";
+
+message Product {
+  int32 id = 1;
+  string name = 2;
+  string description = 3;
+  double price = 4;
+  int32 stock = 5;
+}
+
+message ProductID {
+  int32 id = 1;
+}
+
+message Empty {}
+
+service InventoryService {
+  rpc CreateProduct(Product) returns (Product);
+  rpc GetProduct(ProductID) returns (Product);
+  rpc UpdateProduct(Product) returns (Product);
+  rpc DeleteProduct(ProductID) returns (Empty);
+  rpc ListProducts(Empty) returns (ProductList);
+}
+
+message ProductList {
+  repeated Product products = 1;
+}

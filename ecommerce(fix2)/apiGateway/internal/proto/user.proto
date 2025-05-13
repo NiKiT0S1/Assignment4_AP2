@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "apiGateway/internal/proto";
+
+service UserService {
+  rpc Register (RegisterRequest) returns (UserResponse);
+  rpc Authenticate (AuthRequest) returns (UserResponse);
+  rpc GetProfile (UserID) returns (UserResponse);
+  rpc UpdateProfile (UpdateProfileRequest) returns (UserResponse);
+}
+
+message RegisterRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message AuthRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message UserID {
+  int32 id = 1;
+}
+
+message UpdateProfileRequest {
+  int32 id = 1;
+  string username = 2;
+}
+
+message UserResponse {
+  int32 id = 1;
+  string username = 2;
+}
